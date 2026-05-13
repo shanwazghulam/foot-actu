@@ -109,7 +109,7 @@ export default async function ClassementPage({
                     <tr key={row.team.id} className={`border-b border-gray-50 hover:bg-gray-50 transition border-l-2 ${borderColor}`}>
                       <td className="px-5 py-3 text-gray-500 font-medium">{row.position}</td>
                       <td className="px-2 py-3">
-                        <div className="flex items-center gap-2.5">
+                        <Link href={`/equipe/fdo/${row.team.id}`} className="flex items-center gap-2.5 hover:text-green-600 transition group">
                           <Image
                             src={row.team.crest}
                             alt={row.team.shortName}
@@ -117,8 +117,8 @@ export default async function ClassementPage({
                             height={22}
                             className="object-contain shrink-0"
                           />
-                          <span className="font-medium text-gray-800">{row.team.shortName}</span>
-                        </div>
+                          <span className="font-medium text-gray-800 group-hover:text-green-600">{row.team.shortName}</span>
+                        </Link>
                       </td>
                       <td className="px-3 py-3 text-center text-gray-600">{row.playedGames}</td>
                       <td className="px-3 py-3 text-center text-gray-600">{row.won}</td>
