@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import BackButton from '@/components/BackButton'
 
 export const revalidate = 86400
 
@@ -60,9 +60,7 @@ export default async function JoueurPage({ params }: { params: Promise<{ id: str
 
   return (
     <div className="max-w-3xl mx-auto">
-      <Link href="javascript:history.back()" className="text-sm text-gray-500 hover:text-gray-800 transition mb-6 inline-block">
-        ← Retour
-      </Link>
+      <BackButton />
 
       {/* Header joueur */}
       <div className="bg-white rounded-2xl border border-gray-200 p-8 flex flex-col sm:flex-row items-center gap-6 mb-8">
