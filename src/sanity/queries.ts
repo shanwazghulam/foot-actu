@@ -26,3 +26,23 @@ export const championnatsQuery = groq`
     _id, nom, slug, pays, couleur
   }
 `
+
+export const equipesByChampionnatQuery = groq`
+  *[_type == "equipe" && championnat->slug.current == $slug] | order(nom asc) {
+    _id, nom, slug, pays, logo
+  }
+`
+
+export const equipeBySlugQuery = groq`
+  *[_type == "equipe" && slug.current == $slug][0] {
+    _id, nom, slug, pays, logo, fdoId,
+    championnat->{ _id, nom, slug, couleur }
+  }
+`
+
+export const articlesByEquipeQuery = groq`
+  *[_type == "article" && equipe->slug.current == $slug] | order(publishedAt desc) {
+    _id, titre, slug, resume, publishedAt, image,
+    championnat->{ _id, nom, slug, couleur }
+  }
+`

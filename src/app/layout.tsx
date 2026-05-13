@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <footer className="text-center py-6 text-sm text-gray-400 border-t mt-12">
-          © {new Date().getFullYear()} FootActu – Tous droits réservés
+          © 2025 FootActu – Tous droits réservés
         </footer>
       </body>
     </html>
