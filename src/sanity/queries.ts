@@ -40,6 +40,13 @@ export const equipeBySlugQuery = groq`
   }
 `
 
+export const toutesEquipesQuery = groq`
+  *[_type == "equipe"] | order(nom asc) {
+    _id, nom, slug, logo,
+    championnat->{ slug }
+  }
+`
+
 export const articlesByEquipeQuery = groq`
   *[_type == "article" && equipe->slug.current == $slug] | order(publishedAt desc) {
     _id, titre, slug, resume, publishedAt, image,
