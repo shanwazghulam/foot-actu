@@ -13,6 +13,7 @@ export const article = defineType({
     defineField({ name: 'resume', title: 'Résumé', type: 'text', rows: 3 }),
     defineField({ name: 'contenu', title: 'Contenu', type: 'array', of: [{ type: 'block' }, { type: 'image', options: { hotspot: true } }] }),
     defineField({ name: 'publishedAt', title: 'Date de publication', type: 'datetime' }),
+    defineField({ name: 'auteur', title: 'Auteur', type: 'string' }),
   ],
   preview: {
     select: { title: 'titre', subtitle: 'championnat.nom', media: 'image' },

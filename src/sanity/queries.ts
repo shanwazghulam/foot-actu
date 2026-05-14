@@ -9,7 +9,7 @@ export const articlesQuery = groq`
 
 export const articleBySlugQuery = groq`
   *[_type == "article" && slug.current == $slug][0] {
-    _id, titre, slug, resume, publishedAt, image, contenu,
+    _id, titre, slug, resume, publishedAt, image, contenu, auteur,
     championnat->{ _id, nom, slug, couleur }
   }
 `

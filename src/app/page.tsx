@@ -1,6 +1,7 @@
 import { client } from '@/sanity/client'
 import { articlesQuery, championnatsQuery } from '@/sanity/queries'
 import ArticleCard from '@/components/ArticleCard'
+import LiveScores from '@/components/LiveScores'
 import Link from 'next/link'
 
 export const revalidate = 60
@@ -26,6 +27,9 @@ export default async function HomePage() {
         <h1 className="text-4xl md:text-5xl font-extrabold mb-3">⚽ FootActu</h1>
         <p className="text-gray-300 text-lg">L&apos;actualité des 5 grands championnats européens</p>
       </section>
+
+      {/* Scores live */}
+      <LiveScores />
 
       {/* Filtres championnats */}
       <section className="mb-8 flex flex-wrap gap-3 justify-center">

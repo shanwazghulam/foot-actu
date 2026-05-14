@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { client } from '@/sanity/client'
 import { toutesEquipesQuery } from '@/sanity/queries'
-import ChampionnatDropdown from './ChampionnatDropdown'
+import ChampionnatsMenu from './ChampionnatsMenu'
 
 const championnats = [
   { nom: 'Ligue 1', slug: 'ligue-1', emoji: '🇫🇷' },
@@ -29,13 +29,10 @@ export default async function Header() {
             ⚽ FootActu
           </Link>
           <nav className="hidden md:flex gap-1 items-center">
-            {championnats.map((c) => (
-              <ChampionnatDropdown
-                key={c.slug}
-                championnat={c}
-                equipes={equipesByChampionnat[c.slug] ?? []}
-              />
-            ))}
+            <ChampionnatsMenu
+              championnats={championnats}
+              equipesByChampionnat={equipesByChampionnat}
+            />
             <Link
               href="/live"
               className="px-3 py-1.5 rounded-full text-sm font-medium text-red-400 hover:bg-gray-700 hover:text-red-300 transition"
@@ -47,6 +44,12 @@ export default async function Header() {
               className="px-3 py-1.5 rounded-full text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition"
             >
               📊 Classement
+            </Link>
+            <Link
+              href="/joueurs"
+              className="px-3 py-1.5 rounded-full text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition"
+            >
+              👤 Joueurs
             </Link>
             <Link
               href="/favoris"
@@ -81,6 +84,12 @@ export default async function Header() {
             className="shrink-0 px-3 py-1 rounded-full text-xs font-medium text-gray-300 bg-gray-800 hover:bg-gray-700 transition"
           >
             📊 Classement
+          </Link>
+          <Link
+            href="/joueurs"
+            className="shrink-0 px-3 py-1 rounded-full text-xs font-medium text-gray-300 bg-gray-800 hover:bg-gray-700 transition"
+          >
+            👤 Joueurs
           </Link>
           <Link
             href="/favoris"

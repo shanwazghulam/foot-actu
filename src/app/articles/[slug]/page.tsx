@@ -71,6 +71,18 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <div className="prose prose-lg max-w-none prose-headings:font-bold prose-a:text-green-600">
         {article.contenu && <PortableText value={article.contenu} />}
       </div>
+
+      {article.auteur && (
+        <div className="mt-10 pt-6 border-t border-gray-200 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center text-white font-bold text-sm shrink-0">
+            {article.auteur.charAt(0).toUpperCase()}
+          </div>
+          <div>
+            <p className="text-xs text-gray-400">Rédigé par</p>
+            <p className="font-semibold text-gray-800">{article.auteur}</p>
+          </div>
+        </div>
+      )}
     </article>
   )
 }
