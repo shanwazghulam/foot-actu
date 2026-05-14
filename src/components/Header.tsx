@@ -40,16 +40,34 @@ export default async function Header() {
               🔴 Live
             </Link>
             <Link
-              href="/classement"
+              href="/stats"
               className="px-3 py-1.5 rounded-full text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition"
             >
-              📊 Classement
+              📊 Stats
+            </Link>
+            <Link
+              href="/palmares"
+              className="px-3 py-1.5 rounded-full text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition"
+            >
+              🏆 Palmarès
+            </Link>
+            <Link
+              href="/sondages"
+              className="px-3 py-1.5 rounded-full text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition"
+            >
+              🗳️ Sondages
             </Link>
             <Link
               href="/joueurs"
               className="px-3 py-1.5 rounded-full text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition"
             >
               👤 Joueurs
+            </Link>
+            <Link
+              href="/quiz"
+              className="px-3 py-1.5 rounded-full text-sm font-medium text-purple-400 hover:bg-gray-700 hover:text-purple-300 transition"
+            >
+              🧠 Quiz
             </Link>
             <Link
               href="/favoris"
@@ -90,6 +108,12 @@ export default async function Header() {
             className="shrink-0 px-3 py-1 rounded-full text-xs font-medium text-gray-300 bg-gray-800 hover:bg-gray-700 transition"
           >
             👤 Joueurs
+          </Link>
+          <Link
+            href="/quiz"
+            className="shrink-0 px-3 py-1 rounded-full text-xs font-medium text-purple-400 bg-gray-800 hover:bg-gray-700 transition"
+          >
+            🧠 Quiz
           </Link>
           <Link
             href="/favoris"

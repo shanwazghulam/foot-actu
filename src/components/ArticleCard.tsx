@@ -10,6 +10,8 @@ const couleurMap: Record<string, string> = {
   gray: 'bg-gray-700',
 }
 
+type Championnat = { _id: string; nom: string; slug: { current: string }; couleur?: string }
+
 type Article = {
   _id: string
   titre: string
@@ -17,11 +19,12 @@ type Article = {
   resume?: string
   publishedAt?: string
   image?: { asset: { _ref: string } }
-  championnat?: { nom: string; slug: { current: string }; couleur?: string }
+  championnats?: Championnat[]
+  equipes?: { _id: string; nom: string; slug: { current: string } }[]
 }
 
 export default function ArticleCard({ article }: { article: Article }) {
-  const badgeColor = couleurMap[article.championnat?.couleur ?? ''] ?? 'bg-gray-600'
+  const firstChamp = article.championnats?.[0]
 
   return (
     <Link href={`/articles/${article.slug.current}`} className="group block bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
@@ -36,9 +39,9 @@ export default function ArticleCard({ article }: { article: Article }) {
         ) : (
           <div className="w-full h-full flex items-center justify-center text-5xl bg-gray-200">⚽</div>
         )}
-        {article.championnat && (
-          <span className={`absolute top-3 left-3 ${badgeColor} text-white text-xs font-semibold px-2.5 py-1 rounded-full`}>
-            {article.championnat.nom}
+        {firstChamp && (
+          <span className={`absolute top-3 left-3 ${couleurMap[firstChamp.couleur ?? ''] ?? 'bg-gray-600'} text-white text-xs font-semibold px-2.5 py-1 rounded-full`}>
+            {firstChamp.nom}
           </span>
         )}
       </div>

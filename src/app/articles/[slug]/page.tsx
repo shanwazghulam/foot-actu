@@ -26,20 +26,22 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   if (!article) notFound()
 
-  const badgeColor = couleurMap[article.championnat?.couleur ?? ''] ?? 'bg-gray-600'
-
   return (
     <article className="max-w-3xl mx-auto">
       <Link href="/" className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-800 mb-6 transition">
         ← Retour aux articles
       </Link>
 
-      {article.championnat && (
-        <Link href={`/championnat/${article.championnat.slug.current}`}>
-          <span className={`${badgeColor} text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 inline-block`}>
-            {article.championnat.nom}
-          </span>
-        </Link>
+      {article.championnats?.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-4">
+          {article.championnats.map((c: { _id: string; nom: string; slug: { current: string }; couleur: string }) => (
+            <Link key={c._id} href={`/championnat/${c.slug.current}`}>
+              <span className={`${couleurMap[c.couleur] ?? 'bg-gray-600'} text-white text-xs font-semibold px-3 py-1 rounded-full`}>
+                {c.nom}
+              </span>
+            </Link>
+          ))}
+        </div>
       )}
 
       <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight mt-3 mb-4">

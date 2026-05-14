@@ -256,20 +256,25 @@ export default async function ChampionnatPage({ params }: { params: Promise<{ sl
 
           {upcoming.length > 0 && (
             <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-              <h2 className="text-base font-bold text-gray-800 px-5 py-4 border-b border-gray-100">Prochains matchs</h2>
-              <div className="divide-y divide-gray-50">
+              <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-gray-50">
+                <h2 className="text-base font-bold text-gray-800">📅 Prochains matchs</h2>
+                <span className="text-xs text-gray-400">{upcoming.length} matchs à venir</span>
+              </div>
+              <div className="divide-y divide-gray-100">
                 {upcoming.map((match) => (
-                  <div key={match.id} className="px-4 py-2.5">
-                    <p className="text-xs text-gray-400 mb-1.5">J{match.matchday} · {formatDate(match.utcDate)}</p>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1.5 flex-1 justify-end min-w-0">
-                        <span className="text-xs font-medium text-gray-700 truncate">{match.homeTeam.shortName}</span>
-                        <Image src={match.homeTeam.crest} alt={match.homeTeam.shortName} width={18} height={18} className="object-contain shrink-0" />
+                  <div key={match.id} className="px-5 py-4 hover:bg-gray-50 transition">
+                    <p className="text-xs font-semibold text-green-600 mb-3">
+                      J{match.matchday} &nbsp;·&nbsp; {formatDate(match.utcDate)}
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2 flex-1 justify-end min-w-0">
+                        <span className="text-sm font-semibold text-gray-800 truncate">{match.homeTeam.shortName}</span>
+                        <Image src={match.homeTeam.crest} alt={match.homeTeam.shortName} width={28} height={28} className="object-contain shrink-0" />
                       </div>
-                      <span className="text-xs font-bold text-gray-300 shrink-0">vs</span>
-                      <div className="flex items-center gap-1.5 flex-1 min-w-0">
-                        <Image src={match.awayTeam.crest} alt={match.awayTeam.shortName} width={18} height={18} className="object-contain shrink-0" />
-                        <span className="text-xs font-medium text-gray-700 truncate">{match.awayTeam.shortName}</span>
+                      <span className="shrink-0 px-3 py-1 bg-gray-900 text-white text-xs font-bold rounded-lg">VS</span>
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <Image src={match.awayTeam.crest} alt={match.awayTeam.shortName} width={28} height={28} className="object-contain shrink-0" />
+                        <span className="text-sm font-semibold text-gray-800 truncate">{match.awayTeam.shortName}</span>
                       </div>
                     </div>
                   </div>
