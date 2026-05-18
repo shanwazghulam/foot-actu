@@ -5,6 +5,7 @@ import FavorisButton from '@/components/FavorisButton'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
+import { palmaresEquipes } from '@/data/palmares-equipes'
 
 export const revalidate = 3600
 
@@ -230,6 +231,27 @@ export default async function EquipePage({ params }: { params: Promise<{ slug: s
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* Palmarès */}
+      {equipe.fdoId && palmaresEquipes[equipe.fdoId] && (
+        <div className="mb-10">
+          <h2 className="text-xl font-bold text-gray-800 mb-4">🏆 Palmarès</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {palmaresEquipes[equipe.fdoId].map((t) => (
+              <div key={t.competition} className="bg-white rounded-xl border border-gray-200 p-4 text-center hover:border-yellow-300 transition">
+                <p className="text-2xl mb-1">{t.emoji}</p>
+                <p className="text-xs text-gray-500 mb-2 leading-tight">{t.competition}</p>
+                <p className={`text-3xl font-extrabold ${t.titres > 0 ? 'text-gray-900' : 'text-gray-300'}`}>
+                  {t.titres}
+                </p>
+                {t.annees && (
+                  <p className="text-xs text-gray-400 mt-1 leading-tight">{t.annees}</p>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       )}
 

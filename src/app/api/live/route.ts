@@ -1,22 +1,30 @@
 import { NextResponse } from 'next/server'
 
-export const runtime = 'edge'
+const COMPETITIONS = ['FL1', 'PL', 'PD', 'SA', 'BL1', 'CL']
+const HEADERS = { 'X-Auth-Token': process.env.FOOTBALL_API_TOKEN! }
 
 export async function GET() {
-  const res = await fetch(
-    'https://api.football-data.org/v4/matches?competitions=PL,FL1,PD,SA,BL1,CL,DED,PPL',
-    {
-      headers: { 'X-Auth-Token': process.env.FOOTBALL_API_TOKEN! },
-      next: { revalidate: 0 },
-    }
+  const now = new Date()
+  const y = now.getFullYear()
+  const m = String(now.getMonth() + 1).padStart(2, '0')
+  const d = String(now.getDate()).padStart(2, '0')
+  const date = `${y}-${m}-${d}`
+
+  const results = await Promise.all(
+    COMPETITIONS.map(async (code) => {
+      const res = await fetch(
+        `https://api.football-data.org/v4/competitions/${code}/matches?dateFrom=${date}&dateTo=${date}`,
+        { headers: HEADERS, next: { revalidate: 30 } }
+      )
+      if (!res.ok) return []
+      const data = await res.json()
+      return data.matches ?? []
+    })
   )
 
-  if (!res.ok) {
-    return NextResponse.json({ matches: [] }, { status: res.status })
-  }
+  const matches = results.flat().sort((a, b) => a.utcDate.localeCompare(b.utcDate))
 
-  const data = await res.json()
-  return NextResponse.json(data, {
-    headers: { 'Cache-Control': 'no-store' },
+  return NextResponse.json({ matches }, {
+    headers: { 'Cache-Control': 'public, max-age=30' },
   })
 }

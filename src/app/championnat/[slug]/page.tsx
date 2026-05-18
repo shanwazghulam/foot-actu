@@ -86,16 +86,22 @@ async function fetchMatchday(code: string, matchday: number): Promise<Match[]> {
 }
 
 async function fetchUpcoming(code: string): Promise<Match[]> {
+  const now = new Date()
+  const dateFrom = now.toISOString().slice(0, 10)
+  const dateTo = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)
+
   const res = await fetch(
-    `https://api.football-data.org/v4/competitions/${code}/matches?status=SCHEDULED&limit=6`,
+    `https://api.football-data.org/v4/competitions/${code}/matches?status=SCHEDULED&dateFrom=${dateFrom}&dateTo=${dateTo}`,
     {
       headers: { 'X-Auth-Token': process.env.FOOTBALL_API_TOKEN! },
-      next: { revalidate: 3600 },
+      next: { revalidate: 300 },
     }
   )
   if (!res.ok) return []
   const data = await res.json()
-  return (data.matches ?? []).slice(0, 6)
+  return (data.matches ?? [])
+    .filter((m: Match) => new Date(m.utcDate) > now)
+    .slice(0, 6)
 }
 
 function formatDate(utcDate: string) {
